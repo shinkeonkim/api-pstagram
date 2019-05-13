@@ -16,6 +16,7 @@ Header : 'Bearer {java web token}'
 ## 사용자
 - 프로필 수정 : 사진, 이름
 - 프로필 조회 : id, 사진, 이름
+> ./profile/lookup.php
 - (프로필 삭제) 탈퇴 불가능 관리자 문의바람.
 
 ## 카테고리
@@ -46,16 +47,16 @@ id content
 ...
 ```
 
-## good
+## goods
 - goodId(primary)
 - reviewId
 - userId
 
-## user
-- userId(primary)
-- profileUrl(string)
-- id
-- name
+## users
+- userId(primary) int(11)
+- profileUrl(string)  
+- id varchar(20) 
+- username varchar(10)
 - password
 - web_token
 - push_token
