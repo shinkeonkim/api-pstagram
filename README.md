@@ -52,6 +52,11 @@ id content
 - reviewId
 - userId
 
+  |열 |데이터 유형
+|:-------|:-------:|:-------:|
+|ㅁㅁㅁㅁ| ㅁㅁㅁㅁ|ㅁㅁㅁㅁ|
+
+
 ## users
 - userId(primary) int(11)
 - profileUrl(string)  
@@ -60,3 +65,15 @@ id content
 - password
 - web_token
 - push_token
+
+
+- ceteId(primary)
+- content
+
+id | content
+|:--------|:--------:|
+| 내용 11 | 내용 12 |
+| 내용 21 | 내용 22 |
+
+
+
