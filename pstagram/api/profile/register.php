@@ -10,7 +10,7 @@
             $username = $arr[0];
             $email = $arr[1];
             $password = $arr[2];
-            $hash = password_hash($password, PASSWORD_BCRYPT);
+            $hash = hash("sha1",$password);
             $profile_url = "localhost/pstagram/img/resources/avatar.png";
             $created_at = date("Y-m-d H:i:s");
             $sql = "INSERT INTO `user` (`email`, `username`,`password`,`profile_url`,`created_at`) VALUES ('$email' , '$username','$hash','$profile_url','$created_at')";
