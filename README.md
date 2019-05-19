@@ -44,9 +44,9 @@ __     |열         |데이터 유형         |NULL?    |기본값    |Extra    
 |:-----|:----------:|:----------------:|:-------:|:-------:|:------------------------:|
 |PK    |review_id   | UNSIGNED int(12) |NOT NULL |         |AUTO increasement     |
 |FK    |user_id     | UNSIGNED int(12) |NOT NULL |         | Foreign Key        |
-|      |content     | text             |NOT NULL |         | Foreign Key       |
-|      |hashtag     | text             |NOT NULL |         |         |
-|      |photo_url   | VARCHAR(80)      |NOT NULL |         |         |
+|      |content     | text             |NOT NULL |         |         |
+|      |hashtag     | text             |         |         |         |
+|      |photo_url   | text             |NOT NULL |         |         |
 |FK    |category_id | UNSIGNED int(12) |NOT NULL |         |         |
 |      |product_name| (자료 추가)        |NOT NULL |         |         |
 |      |rate        | int(10)          |NOT NULL |         |         |
@@ -60,28 +60,26 @@ __     |열         |데이터 유형          |NULL?   |기본값    |Extra    
 |      |content    | text		    |NOT NULL |         |                          |
 |      |created_at | DATETIME         |NOT NULL |         |                          |
 |      |updated_at | DATETIME         |         |         |                           |  
-- id(primary)
-- content
-- created_at
-- updated_at
 
 
 id | content
 |:--------|:--------:|
-| 0 | 삼각김밥 |
-| 1 | 컵라면 |
-| 2 | 음료 |
-| 3 | 커피 |
-| 4 | 술 |
-| 5 | 카페인 음료 |
-| 6 | 김밥 |
-| 7 | 도시락 |
-| 8 | 샌드위치 |
-| 9 | 햄버거 |
-| 10 | 과일 |
-| 11 | 과자 |
-| 12 | 초콜릿 |
-| 13 |  |
+| 0 | 도시락 |
+| 1 | 샌드위치/햄버거 |
+| 2 | 주먹밥/김밥 |
+| 3 | 튀김류 |
+| 4 | 베이커리 |
+| 5 | 즉석커피 |
+| 6 | 스낵/비스켓 |
+| 7 | 빵/디저트 |
+| 8 | 껌/초콜릿/캔디 |
+| 9 | 아이스크림 |
+| 10 | 가공식사 |
+| 11 | 안주류 |
+| 12 | 식재료 |
+| 13 | 음료 |
+| 14 | 아이스드링크 |
+| 15 | 유제품 |
 
 ## like
 __     |열         |데이터 유형          |NULL?    |  기본값   |Extra                     |
@@ -106,11 +104,14 @@ __     |열         |데이터 유형          |NULL?    |  기본값   |Extra  
 __     |열         |데이터 유형|기본값    |NULL?    |Extra    |
 |:-----|:---------:|:----------------:|:-------:|:-------:|:------------------------:|
 |PK    |user_id    | UNSIGNED int(12) |NOT NULL |         | AUTO increasement        |
-|      |profile_url| VARCHAR(80)      |NOT NULL |         |                          |
+|      |profile_url| text             |NOT NULL |         |                          |
 |      |email      | VARCHAR(30)      |NOT NULL |         |         |
-|      |username   | VARCHAR(  )      |NOT NULL |         |         |
+|      |username   | VARCHAR(50)      |NOT NULL |         |         |
 |      |password   | VARCHAR(100)     |NOT NULL |         |         |
 |      |web_token  | VARCHAR(300)     |NOT NULL |         |         |
 |      |push_token | VARCHAR(200)     |         |         |         |
 |      |created_at | DATETIME         |NOT NULL |         |         |
 |      |updated_at | DATETIME         |         |         |         |
+|      |google_token| text            |         |         |         |
+|      |register_from| VARCHAR(50) ||||
+

@@ -4,21 +4,26 @@
 
     <body> 
         <?php
+            
             $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
             $arr=$_POST['register'];
             $username = $arr[0];
-            $id = $arr[1];
-
-            $sql = "INSERT INTO `users` (`id`, `username`) VALUES ('$id' , '$username')";
+            $email = $arr[1];
+            $password = $arr[2];
+            $hash = password_hash($password, PASSWORD_BCRYPT);
+            $profile_url = "localhost/pstagram/img/resources/avatar.png";
+            $created_at = date("Y-m-d H:i:s");
+            $sql = "INSERT INTO `user` (`email`, `username`,`password`,`profile_url`,`created_at`) VALUES ('$email' , '$username','$hash','$profile_url','$created_at')";
             $result = mysqli_query($conn,$sql);
+            
             if(!$result)
             {
-                echo "error, can't insert data";
+                echo "register_error";
                 echo mysqli_error($conn);
             }
             else 
             {
-                echo "success";
+                echo "register_success";
             }
             mysqli_close($conn);
         ?>

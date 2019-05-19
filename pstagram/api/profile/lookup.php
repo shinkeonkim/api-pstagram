@@ -4,26 +4,35 @@
 
     <body>
         <?php
-            if(isset($_GET['userId']))
+            if(isset($_GET['user_id']))
             {
                 $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
-                $userId=$_GET['userId'];
-                $sql ="SELECT * FROM `users` WHERE userId= {$_GET['userId']};";
+                $user_id=$_GET['user_id'];
+                $sql ="SELECT * FROM `user` WHERE user_id= {$_GET['user_id']};";
                 $result = mysqli_query($conn,$sql);
+                if(!$result)
+                {
+                    echo "lookup_error";
+                    echo mysqli_error($conn);
+                }
+
                 $row = mysqli_fetch_array($result);
-                mysqli_close($conn);
-                
                 $username=$row['username'];
-                $id=$row['id'];
+                $email=$row['email'];
+                $created_at=$row['created_at'];
+                $profile_url=$row['profile_url'];
                 
+
                 $data = array(
-                    'userId' => $userId,
-                    'id' => $id,
-                    'name' => $username
+                    'user_id' => $user_id,
+                    'email' => $email,
+                    'username' => $username,
+                    'profile_url' => $profile_url,
+                    'created_at' => $created_at
                 );
                 
                 echo json_encode($data);
-
+                mysqli_close($conn);
             }
         ?> 
     </body>
