@@ -21,14 +21,14 @@
             else 
             {
                 $row = mysqli_fetch_array($result);
+                $user_id=$row['user_id'];
+                $username=$row['username'];
+                $email=$row['email'];
+                $created_at=$row['created_at'];
+                $profile_url=$row['profile_url'];
+                
                 if($row['password'] == $hash)
-                {
-                    $user_id=$row['user_id'];
-                    $username=$row['username'];
-                    $email=$row['email'];
-                    $created_at=$row['created_at'];
-                    $profile_url=$row['profile_url'];
-                    
+                {    
                     $data = array(
                         'user_id' => $user_id,
                         'email' => $email,
@@ -42,7 +42,8 @@
                 }
                 else 
                 {
-                    echo "password is wrong";    
+                    if(empty($row['username'])) echo "no email";
+                    else echo "password is wrong";    
                 }
             }
 

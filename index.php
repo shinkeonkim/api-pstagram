@@ -25,6 +25,12 @@
       <a href="pstagram/web/category_test.php">카테고리 테스트 페이지로 이동</a>
     </div>
 
+
+    <div id="move_to_img_list">
+      <h3> 이미지 리스트 </h3>
+      <a href="pstagram/web/img_list.php"> 이미지 리스트 페이지로 이동 </a>
+    </div>
+
     <br>
     <br>
     <br>
