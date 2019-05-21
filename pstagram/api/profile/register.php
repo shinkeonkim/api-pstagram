@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head> </head>
+    <head>
+        <meta charset="utf-8">
+    </head>
 
     <body> 
         <?php
             
+            $flag = 1;
+            $code = "error";
+            $error_number = -1;
+
             $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
             $arr=$_POST['register'];
             $username = $arr[0];
@@ -15,18 +21,11 @@
             $result = mysqli_query($conn,$sql);
             $row= mysqli_fetch_array($result);
 
-            $sql2 = "SELECT * FROM `user` WHERE username in ('{$username}');";
-            $result2 = mysqli_query($conn,$sql2);
-            $row2= mysqli_fetch_array($result2);
-            
             if(isset($row['email']))
-            {
-                echo "이메일이 중복됩니다.";
-            }
-            else if(isset($row2['username']))
-            {
-                echo "username이 중복됩니다.";
-            }
+            {   
+                $flag=0;
+                $error_number = 0;
+            } 
             else 
             {
                 
@@ -38,14 +37,48 @@
                 
                 if(!$result)
                 {
-                    echo "register_error";
-                    echo mysqli_error($conn);
-                }
-                else 
-                {
-                    echo "register_success";
-                }   
+                    $flag=0;
+                    $error_number=1;
+                    //echo mysqli_error($conn); //mysqli 쿼리문 에러 보기
+                } 
             }
+
+            if($flag == 0)
+            {
+                $error_msg = "";
+                if($error_number == 0)
+                {
+                    $error_msg="같은 이메일이 존재합니다.";
+                }
+                else if($error_number == 1)
+                {
+                    $error_msg="서버 오류가 발생했습니다. 관리자에게 문의해주세요.";
+                }
+                $data = array(
+                    'code' => $code,
+                    'msg' => $error_msg
+                );
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            }
+            else 
+            {
+                $code = "success";
+                $success_msg = "회원가입이 완료되었습니다.";
+                $sql = "SELECT * FROM `user` WHERE username in ('{$username}');";
+                $result = mysqli_query($conn,$sql);
+                $row= mysqli_fetch_array($result);
+                
+                $user_id = $row['user_id'];
+
+                $data = array(
+                    'code' => $code,
+                    'msg' => $success_msg,
+                    'username' => $username,
+                    'user_id' => $user_id
+                );
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            }
+
             mysqli_close($conn);
         ?>
     </body>

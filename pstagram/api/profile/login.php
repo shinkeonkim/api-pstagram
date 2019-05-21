@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head> </head>
-
+    
     <body> 
         <?php
-            
+            $flag = 1;
+            $error_number=-1;
+            $code = "error";
+            $error_msg ="";
+
             $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
             $arr = $_POST['login'];
             $email=$arr[0];
@@ -15,8 +19,9 @@
 
             if(!$result)
             {
-                echo "login_error\n";
-                echo mysqli_error($conn);
+                $flag = 0;
+                $error_number = 0;
+                // echo mysqli_error($conn);
             }
             else 
             {
@@ -29,22 +34,55 @@
                 
                 if($row['password'] == $hash)
                 {    
-                    $data = array(
-                        'user_id' => $user_id,
-                        'email' => $email,
-                        'username' => $username,
-                        'profile_url' => $profile_url,
-                        'created_at' => $created_at
-                    );
-                    
-                    echo json_encode($data);
-                    mysqli_close($conn);    
+                    $flag=1;   
+                    $code="success";
                 }
                 else 
                 {
-                    if(empty($row['username'])) echo "no email";
-                    else echo "password is wrong";    
+                    $flag=0;
+                    if(isset($row['username']))
+                    {
+                        $error_number=1;
+                    }
+                    else
+                    {
+                        $error_number=2;
+                    }
                 }
             }
-
-            
+            if($flag == 1)
+            {
+                $data = array(
+                    'code' => $code,
+                    'user_id' => $user_id,
+                    'email' => $email,
+                    'username' => $username,
+                    'profile_url' => $profile_url,
+                    'created_at' => $created_at
+                );
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            }
+            else if($flag == 0)
+            {
+                if($error_number == 0)
+                {
+                    $error_msg = "서버 오류가 발생했습니다. 관리자에게 문의해주세요.";
+                }
+                else if($error_number == 1)
+                {
+                    $error_msg = "존재하지 않는 사용자/이메일입니다.";
+                }
+                else if($error_number ==2)
+                {
+                    $error_msg = "비밀번호가 잘못 되었습니다.";
+                }
+                $data = array(
+                    'code' => $code,
+                    'msg' => $error_msg
+                );  
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            }
+            mysqli_close($conn); 
+        ?>
+    </body>
+</html>

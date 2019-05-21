@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
     </head>
-
 
     <body>
         <h2> 사용자 등록 기능 </h2>
