@@ -6,7 +6,7 @@
         <?php
             $flag = 1;
             $error_number=-1;
-            $code = "error";
+            $code = "";
             $error_msg ="";
 
             $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
@@ -64,6 +64,7 @@
             }
             else if($flag == 0)
             {
+                $code = "error";
                 if($error_number == 0)
                 {
                     $error_msg = "서버 오류가 발생했습니다. 관리자에게 문의해주세요.";

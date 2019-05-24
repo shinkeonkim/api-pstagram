@@ -12,10 +12,10 @@
             $error_number = -1;
 
             $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
-            $arr=$_POST['register'];
-            $username = $arr[0];
-            $email = $arr[1];
-            $password = $arr[2];
+            //$arr=$_POST['register'];
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
             
             $sql = "SELECT * FROM `user` WHERE email in ('{$email}');";
             $result = mysqli_query($conn,$sql);
@@ -28,7 +28,6 @@
             } 
             else 
             {
-                
                 $hash = hash("sha1",$password);
                 $profile_url = "localhost/pstagram/img/resources/avatar.png";
                 $created_at = date("Y-m-d H:i:s");
@@ -45,7 +44,7 @@
 
             if($flag == 0)
             {
-                $error_msg = "";
+                $error_msg = "error";
                 if($error_number == 0)
                 {
                     $error_msg="같은 이메일이 존재합니다.";
