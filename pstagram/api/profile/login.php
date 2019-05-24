@@ -10,9 +10,8 @@
             $error_msg ="";
 
             $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
-            $arr = $_POST['login'];
-            $email=$arr[0];
-            $password=$arr[1];
+            $email=$_POST['email'];
+            $password=$_POST['password'];
             $hash=hash("sha1",$password);
             $sql="SELECT * from `user` where email= '{$email}';";
             $result = mysqli_query($conn,$sql);
