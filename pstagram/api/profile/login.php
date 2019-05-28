@@ -34,7 +34,7 @@
         else 
         {
             $flag=0;
-            if(isset($row['username']))
+            if(!isset($row['username']))
             {
                 $error_number=1;
             }
@@ -48,13 +48,14 @@
     {
         $data = array(
             'code' => $code,
+            'msg' => "로그인되었습니다."
             'user_id' => $user_id,
             'email' => $email,
             'username' => $username,
             'profile_url' => $profile_url,
             'created_at' => $created_at
         );
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));
     }
     else if($flag == 0)
     {
@@ -75,7 +76,7 @@
             'code' => $code,
             'msg' => $error_msg
         );  
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));
     }
     mysqli_close($conn); 
 ?>

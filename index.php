@@ -15,9 +15,14 @@
       <a href="pstagram/web/lookup_test.php">사용자 조회 테스트 페이지로 이동 </a>
     </div>
 
-    <div id="move_to_review">
-      <h3> 리뷰 테스트 </h3>
-      <a href="pstagram/web/review_test.php">리뷰 테스트 페이지로 이동</a>
+    <div id="move_to_review_upload">
+      <h3> 리뷰 업로드테스트 </h3>
+      <a href="pstagram/web/review_upload_test.php">리뷰 업로드 페이지로 이동</a>
+    </div>
+
+    <div id="move_to_review_lookup">
+      <h3> 리뷰 조회 테스트 </h3>
+      <a href="pstagram/web/review_lookup_test.php">리뷰 조회 페이지로 이동</a>
     </div>
 
     <div id="move_to_category">
@@ -30,7 +35,6 @@
       <h3> 이미지 리스트 </h3>
       <a href="pstagram/web/img_list.php"> 이미지 리스트 페이지로 이동 </a>
     </div>
-
     <br>
     <br>
     <br>

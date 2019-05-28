@@ -36,6 +36,7 @@
 
     if($flag == 0)
     {
+        $code = "error";
         $error_msg = "error";
         if($error_number == 0)
         {
@@ -49,7 +50,7 @@
             'code' => $code,
             'msg' => $error_msg
         );
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));
     }
     else 
     {
@@ -64,10 +65,14 @@
         $data = array(
             'code' => $code,
             'msg' => $success_msg,
+            'user_id' => $user_id, 
+            'email' => $email, 
             'username' => $username,
-            'user_id' => $user_id
+            'profile_url' => $profile_url,
+            'created_at' => $created_at
         );
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));
+       
     }
 
     mysqli_close($conn);
