@@ -1,5 +1,5 @@
 <?php
-    
+    header('Content-Type: application/json; charset=utf8');   
     $flag = 1;
     $code = "";
     $error_number = -1;

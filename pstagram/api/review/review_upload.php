@@ -1,4 +1,5 @@
 <?php
+    header('Content-Type: application/json; charset=utf8');
     $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
     $flag = 1;
     $error_number=-1;

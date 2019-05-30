@@ -1,4 +1,5 @@
 <?php
+    header('Content-Type: application/json; charset=utf8');
     $flag = 1;
     $error_number=-1;
     $code = "";
@@ -48,7 +49,7 @@
     {
         $data = array(
             'code' => $code,
-            'msg' => "로그인되었습니다."
+            'msg' => "로그인되었습니다.",
             'user_id' => $user_id,
             'email' => $email,
             'username' => $username,
@@ -75,7 +76,7 @@
         $data = array(
             'code' => $code,
             'msg' => $error_msg
-        );  
+        ); 
         echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));
     }
     mysqli_close($conn); 

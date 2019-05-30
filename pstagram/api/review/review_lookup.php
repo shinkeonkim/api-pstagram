@@ -1,4 +1,5 @@
 <?php
+    header('Content-Type: application/json; charset=utf8');
     $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
     if(!empty($_GET['user_id']))
     {
@@ -56,6 +57,7 @@
                     'username' => $row2['username'],
                     'user_id' => $row['user_id'],
                     'content' => $row['content'],
+                    'current_page' => $page,
                     'created_at' => $row['created_at'],
                     'profile_url' => $row2['profile_url'],
                     'photo_url' => $row['photo_url'],
