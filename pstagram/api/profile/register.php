@@ -5,9 +5,14 @@
     $error_number = -1;
 
     $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $data = file_get_contents('php://input');
+    $arr = json_decode($data,true);
+
+    $username = $arr['username'];
+    $email = $arr['email'];
+    $password = $arr['password'];
+
+
     
     $sql = "SELECT * FROM `user` WHERE email in ('{$email}');";
     $result = mysqli_query($conn,$sql);

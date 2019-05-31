@@ -4,9 +4,13 @@
     $flag = 1;
     $error_number=-1;
     $msg="";
-    $user_id = $_POST['user_id'];
-    $content = $_POST['content'];
-    $rate = $_POST['rate'];
+
+
+    $data = file_get_contents('php://input');
+    $arr = json_decode($data,true);
+    $user_id = $email['user_id'];
+    $content = $email['content'];
+    $rate = $email['rate'];
     $created_at = date("Y-m-d H:i:s");
 
 
@@ -17,7 +21,7 @@
     
     
     // 실제 이미지인지 페이크 이미지인지 확인
-    if(isset($_POST["submit"])) 
+    /*if(isset($_POST["submit"])) 
     {
         $check = getimagesize($_FILES["image_upload"]["tmp_name"]);
         if($check !== false) 
@@ -30,7 +34,7 @@
             $flag = 0;
         }
     }
-    
+    */
     /* 파일이 이미 존재하는가?
     if (file_exists($target_file)) 
     {

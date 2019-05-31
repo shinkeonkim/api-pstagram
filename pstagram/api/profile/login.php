@@ -4,10 +4,14 @@
     $error_number=-1;
     $code = "";
     $error_msg ="";
-
+    
     $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
-    $email=$_POST['email'];
-    $password=$_POST['password'];
+    $data = file_get_contents('php://input');
+    $arr = json_decode($data,true);
+
+    $email = $arr['email'];
+    $password = $arr['password'];
+
     $hash=hash("sha1",$password);
     $sql="SELECT * from `user` where email= '{$email}';";
     $result = mysqli_query($conn,$sql);

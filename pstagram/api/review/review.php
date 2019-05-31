@@ -1,6 +1,7 @@
 <?php
     header('Content-Type: application/json; charset=utf8');
     $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
+    
     if(!empty($_GET['user_id']))
     {
         //입력 존재 => 특정 사람의 feed
