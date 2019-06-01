@@ -1,6 +1,7 @@
 <?php
     header('Content-Type: application/json; charset=utf8');
-    $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
+    include '../server_init.php';
+
     $flag = 1;
     $error_number=-1;
     $msg="";
@@ -8,9 +9,16 @@
 
     $data = file_get_contents('php://input');
     $arr = json_decode($data,true);
-    $user_id = $email['user_id'];
-    $content = $email['content'];
-    $rate = $email['rate'];
+    $user_id = $arr['user_id'];
+    $content = $arr['content'];
+    $rate = $arr['rate'];
+    
+    /*
+    $user_id = $_POST['user_id'];
+    $content = $_POST['content'];
+    $rate = $_POST['rate'];
+    */
+
     $created_at = date("Y-m-d H:i:s");
 
 
@@ -19,6 +27,8 @@
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     $photo_url = $target_dir.hash("sha1",$created_at.$user_id).".".$imageFileType;
     
+    $target_dir2 = "uploads/";
+    $img_url= $target_dir2 . hash("sha1",$created_at.$user_id).".".$imageFileType;
     
     // 실제 이미지인지 페이크 이미지인지 확인
     /*if(isset($_POST["submit"])) 
@@ -84,7 +94,7 @@
     {
         if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $photo_url)) 
         {
-            $sql = "INSERT INTO `review` (`user_id`, `content`,`photo_url`,`rate`,`created_at`) VALUES ('$user_id' , '$content','$photo_url','$rate','$created_at')";
+            $sql = "INSERT INTO `review` (`user_id`, `content`,`photo_url`,`rate`,`created_at`) VALUES ('$user_id' , '$content','$img_url','$rate','$created_at')";
             $result = mysqli_query($conn,$sql);
             
             if(!$result)

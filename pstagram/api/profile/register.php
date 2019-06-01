@@ -1,10 +1,9 @@
 <?php
     header('Content-Type: application/json; charset=utf8');   
+    include '../server_init.php';
     $flag = 1;
     $code = "";
     $error_number = -1;
-
-    $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
     $data = file_get_contents('php://input');
     $arr = json_decode($data,true);
 
@@ -12,8 +11,6 @@
     $email = $arr['email'];
     $password = $arr['password'];
 
-
-    
     $sql = "SELECT * FROM `user` WHERE email in ('{$email}');";
     $result = mysqli_query($conn,$sql);
     $row= mysqli_fetch_array($result);
@@ -26,7 +23,7 @@
     else 
     {
         $hash = hash("sha1",$password);
-        $profile_url = "localhost/pstagram/img/resources/avatar.png";
+        $profile_url = "img/resources/avatar.png";
         $created_at = date("Y-m-d H:i:s");
         $sql = "INSERT INTO `user` (`email`, `username`,`password`,`profile_url`,`created_at`) VALUES ('$email' , '$username','$hash','$profile_url','$created_at')";
         $result = mysqli_query($conn,$sql);
@@ -73,7 +70,7 @@
             'user_id' => $user_id, 
             'email' => $email, 
             'username' => $username,
-            'profile_url' => $profile_url,
+            'profile_url' => $server_url.$profile_url,
             'created_at' => $created_at
         );
         echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));

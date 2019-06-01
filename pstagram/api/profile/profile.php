@@ -1,6 +1,6 @@
 <?php
     header('Content-Type: application/json; charset=utf8');
-    $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
+    include '../server_init.php';
     if(isset($_GET['user_id']))
     {    
         $user_id=$_GET['user_id'];
@@ -36,7 +36,7 @@
                     'user_id' => $user_id,
                     'email' => $email,
                     'username' => $username,
-                    'profile_url' => $profile_url,
+                    'profile_url' => $server_url.$profile_url,
                     'created_at' => $created_at
                 );    
                 echo json_encode($data,JSON_UNESCAPED_UNICODE);  

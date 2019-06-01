@@ -1,11 +1,12 @@
 <?php
     header('Content-Type: application/json; charset=utf8');
+    include '../server_init.php';
+
     $flag = 1;
     $error_number=-1;
     $code = "";
     $error_msg ="";
     
-    $conn = mysqli_connect('localhost','root','skyjPstagram','pstagram');
     $data = file_get_contents('php://input');
     $arr = json_decode($data,true);
 
@@ -57,7 +58,7 @@
             'user_id' => $user_id,
             'email' => $email,
             'username' => $username,
-            'profile_url' => $profile_url,
+            'profile_url' => $server_url.$profile_url,
             'created_at' => $created_at
         );
         echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));
