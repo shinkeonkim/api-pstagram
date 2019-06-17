@@ -13,7 +13,7 @@
         
         $sql="SELECT count(*) from `review`";
         $cnt = mysqli_query($conn,$sql);
-        $sql="SELECT * from `review` where user_id= '{$user_id}' limit $item OFFSET $start;";
+        $sql="SELECT * from `review` where user_id= '{$user_id}' order by `created_at` desc limit $item OFFSET $start;";
         $result = mysqli_query($conn,$sql);
         $array_total=array();
         $array_arr=array();
@@ -28,6 +28,7 @@
                 'username' => $row2['username'],
                 'user_id' => $row['user_id'],
                 'content' => $row['content'],
+                'rate' => $row['rate'],
                 'created_at' => $row['created_at'],
                 'profile_url' => $server_url.$row2['profile_url'],
                 'photo_url' => $server_url.$row['photo_url'],
@@ -57,7 +58,9 @@
         $page=$_GET['page'];
         $start= $item * ($page -1);
 
-        $sql="SELECT * from `review` limit $item OFFSET $start;";
+        $sql="SELECT count(*) from `review`";
+        $cnt = (int)mysqli_query($conn,$sql);
+        $sql="SELECT * from `review` order by `created_at` desc limit $item OFFSET $start;";
         $result = mysqli_query($conn,$sql);
         $array_total=array();
         $array_arr=array();
@@ -71,6 +74,7 @@
                 'username' => $row2['username'],
                 'user_id' => $row['user_id'],
                 'content' => $row['content'],
+                'rate' => $row['rate'],
                 'created_at' => $row['created_at'],
                 'profile_url' => $server_url.$row2['profile_url'],
                 'photo_url' => $server_url.$row['photo_url'],
