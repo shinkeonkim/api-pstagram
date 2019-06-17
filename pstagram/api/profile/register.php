@@ -4,12 +4,18 @@
     $flag = 1;
     $code = "";
     $error_number = -1;
+    
+    
     $data = file_get_contents('php://input');
     $arr = json_decode($data,true);
-
     $username = $arr['username'];
     $email = $arr['email'];
     $password = $arr['password'];
+    /*
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    */
 
     $sql = "SELECT * FROM `user` WHERE email in ('{$email}');";
     $result = mysqli_query($conn,$sql);
