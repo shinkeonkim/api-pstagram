@@ -7,11 +7,16 @@
     $code = "";
     $error_msg ="";
     
+    
     $data = file_get_contents('php://input');
     $arr = json_decode($data,true);
-
     $email = $arr['email'];
     $password = $arr['password'];
+    
+    /*
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    */
 
     $hash=hash("sha1",$password);
     $sql="SELECT * from `user` where email= '{$email}';";
