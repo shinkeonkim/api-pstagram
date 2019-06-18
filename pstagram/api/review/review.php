@@ -10,9 +10,12 @@
         $page=$_GET['page'];
 
         $start= $item * ($page -1);
-        
-        $sql="SELECT count(*) from `review`";
-        $cnt = mysqli_query($conn,$sql);
+
+        $sql = "SELECT COUNT(*) FROM `review`";
+        $result = mysqli_query($conn,$sql);
+        $row = mysqli_fetch_array($result); 
+        $cnt = $row[0];
+
         $sql="SELECT * from `review` where user_id= '{$user_id}' order by `created_at` desc limit $item OFFSET $start;";
         $result = mysqli_query($conn,$sql);
         $array_total=array();
@@ -32,7 +35,8 @@
                 'created_at' => $row['created_at'],
                 'profile_url' => $server_url.$row2['profile_url'],
                 'photo_url' => $server_url.$row['photo_url'],
-                'review_id' => $row['review_id']
+                'review_id' => $row['review_id'],
+                'product_name' =>$row['product_name']
             );
             array_push($array_arr, $array_unit);
         }
@@ -58,9 +62,12 @@
         $page=$_GET['page'];
         $start= $item * ($page -1);
 
-        $sql="SELECT count(*) from `review`";
-        $cnt = (int)mysqli_query($conn,$sql);
-        $sql="SELECT * from `review` order by `created_at` desc limit $item OFFSET $start;";
+        $sql = "SELECT COUNT(*) FROM `review`";
+        $result = mysqli_query($conn,$sql);
+        $row = mysqli_fetch_array($result); 
+        $cnt = $row[0];
+
+        $sql="SELECT * from`review`order by`created_at`desc limit $item OFFSET $start;";
         $result = mysqli_query($conn,$sql);
         $array_total=array();
         $array_arr=array();
@@ -78,7 +85,8 @@
                 'created_at' => $row['created_at'],
                 'profile_url' => $server_url.$row2['profile_url'],
                 'photo_url' => $server_url.$row['photo_url'],
-                'review_id' => $row['review_id']
+                'review_id' => $row['review_id'],
+                'product_name' =>$row['product_name']
             );
             array_push($array_arr,$array_unit);
         }

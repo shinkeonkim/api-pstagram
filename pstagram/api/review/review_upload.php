@@ -1,11 +1,9 @@
 <?php
     header('Content-Type: application/json; charset=utf8');
     include '../server_init.php';
-
     $flag = 1;
     $error_number=-1;
     $msg="";
-
     /*
     $data = file_get_contents('php://input');
     $arr = json_decode($data,true);
@@ -17,18 +15,22 @@
     $user_id = $_POST['user_id'];
     $content = $_POST['content'];
     $rate = $_POST['rate'];
+    $product_name = $_POST['product_name'];
     
+    if(empty($user_id) || empty($content) || empty($rate) || empty($product_name))
+    {
+        $flag=0;
+        $error_number=4;
+    }
 
     $created_at = date("Y-m-d H:i:s");
-
-
     $target_dir = "C:/Bitnami/wampstack/apache2/htdocs/pstagram/uploads/"; //설정 중요
     $target_file = $target_dir . basename($_FILES['image_upload']["name"]);
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-    $photo_url = $target_dir.hash("sha1",$created_at.$user_id).".".$imageFileType;
+    $photo_url = $target_dir.hash("sha1",$created_at.$user_id).".jpeg";
     
     $target_dir2 = "uploads/";
-    $img_url= $target_dir2 . hash("sha1",$created_at.$user_id).".".$imageFileType;
+    $img_url= $target_dir2 . hash("sha1",$created_at.$user_id).".jpeg";
     
     // 실제 이미지인지 페이크 이미지인지 확인
     /*if(isset($_POST["submit"])) 
@@ -51,7 +53,6 @@
         echo "Sorry, file already exists.";
         $flag = 0;
     }*/
-
     // 파일사이즈 체크
     if ($_FILES['image_upload']['size'] > 10000000)  
     {
@@ -78,11 +79,15 @@
         }
         else if($error_number == 2)
         {
-            $error_msg="이미지의 용량이 너무 큽니다.".$content."*";
+            $error_msg="이미지의 용량이 너무 큽니다.";
         }
         else if($error_number == 3)
         {
-            $error_msg="파일의 형식이 잘못되었습니다";
+            $error_msg="파일의 형식이 잘못되었습니다.";
+        }
+        else if($error_number == 4)
+        {
+            $error_msg="입력이 불충분합니다.";
         }
         $data = array(
             'code' => $code,
@@ -90,18 +95,18 @@
         );
         echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));    
     } 
-    else //업로드가 완료된 경우 
+    else //업로드를 하는 경우
     {
         if (move_uploaded_file($_FILES['image_upload']['tmp_name'], $photo_url)) 
         {
-            $sql = "INSERT INTO `review` (`user_id`, `content`,`photo_url`,`rate`,`created_at`) VALUES ('$user_id' , '$content','$img_url','$rate','$created_at')";
+            $sql = "INSERT INTO `review` (`user_id`, `content`,`photo_url`,`rate`,`created_at`,`product_name`) VALUES ('$user_id' , '$content','$img_url','$rate','$created_at','$product_name')";
             $result = mysqli_query($conn,$sql);
             
             if(!$result)
             {
                 $data = array(
                     'code' => "error",
-                    'msg' => "업로드 과정 중, 에러가 발생하였습니다.".$user_id.$content.(string)$rate
+                    'msg' => "업로드 과정 중, 에러가 발생하였습니다."
                 );
                 echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));    
             }
@@ -118,7 +123,7 @@
         {
             $data = array(
                 'code' => "error",
-                'msg' => "업로드 과정 중, 에러가 발생하였습니다.".$user_id.$content.(string)$rate."*"
+                'msg' => "이미지 전송 과정 중, 에러가 발생하였습니다."
             );
             echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));
         }

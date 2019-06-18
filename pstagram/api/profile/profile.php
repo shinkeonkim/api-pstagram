@@ -33,13 +33,15 @@
             else 
             {
                 $data = array(
+                    'code' => "success",
+                    'msg' => "조회 성공했습니다.",
                     'user_id' => $user_id,
                     'email' => $email,
                     'username' => $username,
                     'profile_url' => $server_url.$profile_url,
                     'created_at' => $created_at
                 );    
-                echo json_encode($data,JSON_UNESCAPED_UNICODE);  
+                echo str_replace('\\/', '/',json_encode($data,JSON_UNESCAPED_UNICODE));  
             }   
         }
     }
